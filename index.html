@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currency Converter</title>
+  </head>
+  <body>
+    <!--Week1 Currency Converter!-->
+    <label for="currency">Create A New Rate</label>
+    <form id="currencyRateForm">
+      <input type="text" value="DKK" id="baseCurrency" />
+      <input type="text" id="conjugateCurrency" />
+      <input type="number" id="rate" />
+      <button type="button" onclick="addCurrency()">Add Currency</button>
+    </form>
+    <form id="convertionForm">
+      <input type="text" value="DKK" id="mainCurrency" />
+      <input type="text" id="targetCurrency" />
+      <input type="number" id="amount" />
+      <button type="button" onclick="convertCurrency()">Convert</button>
+      <p id="result"></p>
+    </form>
+
+    <script src="main.js"></script>
+  </body>
+</html>
