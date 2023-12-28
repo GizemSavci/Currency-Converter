@@ -1,3 +1,18 @@
+//Week3 get Hours
+const d = new Date();
+const currentHour = d.getHours();
+console.log(currentHour);
+
+const openingHour = 9;
+const closingHour = 17;
+
+const marketAvailability = document.getElementById('marketAvailability')
+if(currentHour > openingHour && currentHour < closingHour){
+  marketAvailability.textContent = 'Market is open.'
+}else{
+  marketAvailability.textContent = 'Market is not open. You cannot exchange currency.'
+}
+
 //Update Data structure Week2
 const currencyData = [
     {
@@ -210,11 +225,34 @@ function searchCurrency() {
                 }
             }
         } else {
-            console.log('Currency rates not found or empty.');
+            //console.log('Currency rates not found or empty.');
             searchResultContainer.innerText = 'Currency rates not found.';
         }
     } else {
-        console.log('Base currency not found.');
+        //console.log('Base currency not found.');
         searchResultContainer.innerText = 'Base currency not found.';
     }
+}
+
+
+// Week3 Special Value Alert
+const notification = document.getElementById('notification')
+
+function checkCurrencyRate() {
+  // Retrieve values when the function is called
+  const baseSpecialValue = document.getElementById('baseSpecialValue').value.trim();
+  const conjugateSpecialValue = document.getElementById('conjugateSpecialValue').value.trim();
+
+  const baseCurrencyIndex = currencyData.findIndex(currency => currency.baseCurrency === baseSpecialValue);
+
+  //Loop through rates
+  if (baseCurrencyIndex !== -1) {
+    if (currencyData[baseCurrencyIndex].rates && currencyData[baseCurrencyIndex].rates.hasOwnProperty(conjugateSpecialValue)) {
+      //console.log('Congrats');
+      notification.textContent = 'Today, currency fits your rate alarm.';
+    } else {
+      //console.log('Nope');
+      notification.textContent = 'The currency has no special value today.';
+    }
+  }
 }
