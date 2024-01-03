@@ -15,12 +15,15 @@ Implement Search Function.
 
 ## Week3
 Implement a timeout to o indicate whether the currency market is currently open or closed.
-Integrate an alarm system for monitoring specific exchange rates.
+Integrate an alarm system for monitoring specific exchange rates.  
+
 Estimated Project Delivery: 21.01.2024
 
 # Installation
-Ensure that you have Git, Node, and npm installed on your system.Clone the repo with this command on your terminal.
+Ensure that you have Git, Node, and npm installed on your system. Clone the repo with this command on your terminal.
+```
 git clone https://github.com/GizemSavci/Currency-Converter.git
+```
 
 # Contribution Expectation
 If you find a bug or have some idea enhancement ideas, please create issue first with your recommendation. Then create a pull request.
