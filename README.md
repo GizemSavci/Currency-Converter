@@ -20,7 +20,7 @@ Integrate an alarm system for monitoring specific exchange rates.
 Estimated Project Delivery: 21.01.2024
 
 # Installation
-Ensure that you have Git, Node installed on your system. Clone the repo with this command on your terminal.
+Ensure that you have Git, Node.js installed on your system. Clone the repo with this command on your terminal.
 ```
 git clone https://github.com/GizemSavci/Currency-Converter.git
 ```
