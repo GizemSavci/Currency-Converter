@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Currency Converter</title>
+  </head>
+  <body>
+    <!--Week1 Currency Converter!-->
+    <label for="currency">Create A New Rate</label>
+    <form id="currencyRateForm">
+      <input type="text" value="Danish Krone" id="baseCurrency" />
+      <input type="text" id="conjugateCurrency" />
+      <input type="number" id="rate" />
+      <button type="button" onclick="addCurrency()">Add Currency</button>
+    </form>
+    <form id="convertionForm">
+      <input type="text" value="Danish Krone" id="mainCurrency" />
+      <input type="text" id="targetCurrency" />
+      <input type="number" id="amount" />
+      <button type="button" onclick="convertCurrency()">Convert</button>
+      <p id="result"></p>
+    </form>
+    <!--Week2 Currency Table!-->
+    <div id="currencyRateGrid">
+      <input
+        type="button"
+        value="Generate a table"
+        onclick="generateCurrencyTable()"
+      />
+    </div>
+
+    <!--Week2 Search Field!-->
+    <form id="searchForm">
+      <input type="text" id="searchFrom" placeholder="From currency" />
+      <!--<input type="text" id="searchTo" placeholder="To currency" />!-->
+      <button type="button" onclick="searchCurrency()">Search</button>
+      <p id="searchResult"></p>
+    </form>
+
+    <!--Week3 Search Field!-->
+    <div id="marketHours">
+      <p id="marketAvailability"></p>
+    </div>
+    <div id="ValueAlert">
+      <input type="text" id="baseSpecialValue" />
+      <input type="text" id="conjugateSpecialValue" />
+      <input type="text" id="specialRate" />
+      <p id="notification"></p>
+      <button type="button" onclick="checkCurrencyRate()">Alarm</button>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
