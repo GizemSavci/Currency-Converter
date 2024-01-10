@@ -8,16 +8,16 @@
   <body>
     <!--Week1 Currency Converter!-->
     <label for="currency">Create A New Rate</label>
-    <form id="currencyRateForm">
-      <input type="text" value="DKK" id="baseCurrency" />
-      <input type="text" id="conjugateCurrency" />
-      <input type="number" id="rate" />
-      <button type="button" onclick="addCurrency()">Add Currency</button>
+    <form id="currencyRateForm" onsubmit="return addCurrency(event)">
+      <input type="text" value="DKK" id="baseCurrency" required />
+      <input type="text" id="conjugateCurrency" required />
+      <input type="number" id="rate" required />
+      <button type="submit">Add Currency</button>
     </form>
-    <form id="convertionForm">
-      <input type="text" value="DKK" id="mainCurrency" />
-      <input type="text" id="targetCurrency" />
-      <input type="number" id="amount" />
+    <form id="convertionForm" onsubmit="return convertCurrency()">
+      <input type="text" value="DKK" id="mainCurrency" required />
+      <input type="text" id="targetCurrency" required />
+      <input type="number" id="amount" required />
       <button type="button" onclick="convertCurrency()">Convert</button>
       <p id="result"></p>
     </form>

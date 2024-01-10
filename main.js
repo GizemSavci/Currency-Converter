@@ -1,7 +1,7 @@
 const currencyData = [];
 
-function addCurrency(){
-
+function addCurrency(event){
+    event.preventDefault();
     const baseCurrency = document.getElementById('baseCurrency').value;
     const conjugateCurrency =document.getElementById('conjugateCurrency').value;
     const rate = parseFloat(document.getElementById('rate').value);
@@ -21,7 +21,8 @@ function addCurrency(){
     currencyData.push(newCurrency);
     console.log(currencyData);
 
-    return currencyData;
+    //return currencyData;
+    return false;
 }
 
 
