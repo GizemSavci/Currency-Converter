@@ -37,10 +37,12 @@ function convertCurrency(){
     }
 
     const targetCurrencyData = currencyData.find(currency => currency.conjugate === targetCurrency);
-
+    const result = amount*targetCurrencyData.rate;
     if (targetCurrencyData){
-        const result = amount*targetCurrencyData.rate;
         document.getElementById('result').innerText =`${amount} ${targetCurrency} equals ${result.toFixed(2)} ${mainCurrency}`;
         return result;
+    }else if(!targetCurrencyData){
+      document.getElementById('result').innerText = 'Please try another currency.';
+      return result;
     }
 }
