@@ -7,11 +7,15 @@ const openingHour = 9;
 const closingHour = 17;
 
 const marketAvailability = document.getElementById('marketAvailability')
-if(currentHour >= openingHour && currentHour <= closingHour){
-  marketAvailability.textContent = 'Market is open.'
-}else{
-  marketAvailability.textContent = 'Market is not open. You cannot exchange currency.'
+function checkMarketAvailability(){
+  if(currentHour >= openingHour && currentHour <= closingHour){
+    marketAvailability.textContent = 'Market is open.'
+  }else{
+    marketAvailability.textContent = 'Market is not open. You cannot exchange currency.'
+  }
 }
+
+setInterval(marketAvailability, 5000);
 
 //Update Data structure Week2
 const currencyData = [
