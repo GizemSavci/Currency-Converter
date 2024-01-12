@@ -7,7 +7,7 @@ const openingHour = 9;
 const closingHour = 17;
 
 const marketAvailability = document.getElementById('marketAvailability')
-if(currentHour > openingHour && currentHour < closingHour){
+if(currentHour >= openingHour && currentHour <= closingHour){
   marketAvailability.textContent = 'Market is open.'
 }else{
   marketAvailability.textContent = 'Market is not open. You cannot exchange currency.'

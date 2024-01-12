@@ -9,15 +9,24 @@
     <!--Week1 Currency Converter!-->
     <label for="currency">Create A New Rate</label>
     <form id="currencyRateForm">
-      <input type="text" value="Danish Krone" id="baseCurrency" />
-      <input type="text" id="conjugateCurrency" />
-      <input type="number" id="rate" />
+      <input
+        placeholder="Base Currency:Danish Krone"
+        type="text"
+        value="Danish Krone"
+        id="baseCurrency"
+      />
+      <input
+        type="text"
+        id="conjugateCurrency"
+        placeholder="Exchange Currency"
+      />
+      <input type="number" id="rate" placeholder="Ratio" />
       <button type="button" onclick="addCurrency()">Add Currency</button>
     </form>
     <form id="convertionForm">
       <input type="text" value="Danish Krone" id="mainCurrency" />
-      <input type="text" id="targetCurrency" />
-      <input type="number" id="amount" />
+      <input type="text" id="targetCurrency" placeholder="Exchange Currency" />
+      <input type="number" id="amount" placeholder="Amount" />
       <button type="button" onclick="convertCurrency()">Convert</button>
       <p id="result"></p>
     </form>
@@ -43,9 +52,17 @@
       <p id="marketAvailability"></p>
     </div>
     <div id="ValueAlert">
-      <input type="text" id="baseSpecialValue" />
-      <input type="text" id="conjugateSpecialValue" />
-      <input type="text" id="specialRate" />
+      <input
+        type="text"
+        id="baseSpecialValue"
+        placeholder="Enter your 'Target Currency"
+      />
+      <input
+        type="text"
+        id="conjugateSpecialValue"
+        placeholder="Enter your Exchange Currency"
+      />
+      <input type="text" id="specialRate" placeholder="Enter your alarm rate" />
       <p id="notification"></p>
       <button type="button" onclick="checkCurrencyRate()">Alarm</button>
     </div>
