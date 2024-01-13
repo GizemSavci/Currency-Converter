@@ -17,58 +17,17 @@ function checkMarketAvailability(){
 
 setInterval(marketAvailability, 5000);
 
-//Update Data structure Week2
-const currencyData = [
-    {
-      timestamp: new Date().getTime(),
-      date: new Date(),
-      baseCurrency: "Danish Krone",
-      rates: {}
-    },
-    {
-      timestamp: new Date().getTime(),
-      date: new Date(),
-      baseCurrency: "Euro",
-      rates: {}
-    },
-    {
-      timestamp: new Date().getTime(),
-      date: new Date(),
-      baseCurrency: "Dollar",
-      rates: {}
-    },
-    {
-        timestamp: new Date().getTime(),
-        date: new Date(),
-        baseCurrency: "Swedish Krone",
-        rates: {}
-    },
-    {
-        timestamp: new Date().getTime(),
-        date: new Date(),
-        baseCurrency: "Norwegian Krone",
-        rates: {}
-      },
-      {
-        timestamp: new Date().getTime(),
-        date: new Date(),
-        baseCurrency: "Swiss Frank",
-        rates: {}
-      },
-      {
-        timestamp: new Date().getTime(),
-        date: new Date(),
-        baseCurrency: "Pound Sterling",
-        rates: {}
-      },
-      {
-        timestamp: new Date().getTime(),
-        date: new Date(),
-        baseCurrency: "Turkish Lira",
-        rates: {}
-      },      
-
-  ];
+//Update Data structure JS3 Week1
+fetch("https://raw.githubusercontent.com/GizemSavci/gizem.github.io/main/data/currencies.json")
+  .then(response => response.json())
+  .then(items => {
+    items.forEach(item => {
+      console.log(item.rates);
+    });
+  })
+  .catch(error => {
+    console.log("Error fetching data:", error);
+  });
   
 //Function to add currency rates to base currencies  
 function addCurrency() {
