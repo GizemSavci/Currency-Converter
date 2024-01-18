@@ -6,30 +6,16 @@
     <title>Currency Converter</title>
   </head>
   <body>
-    <!--Week1 Currency Converter!-->
-    <label for="currency">Create A New Rate</label>
-    <form id="currencyRateForm">
-      <input
-        placeholder="Base Currency:Danish Krone"
-        type="text"
-        value="Danish Krone"
-        id="baseCurrency"
-      />
-      <input
-        type="text"
-        id="conjugateCurrency"
-        placeholder="Exchange Currency"
-      />
-      <input type="number" id="rate" placeholder="Ratio" />
-      <button type="button" onclick="addCurrency()">Add Currency</button>
-    </form>
-    <form id="convertionForm">
-      <input type="text" value="Danish Krone" id="mainCurrency" />
-      <input type="text" id="targetCurrency" placeholder="Exchange Currency" />
-      <input type="number" id="amount" placeholder="Amount" />
+    <!--JS3 Week1 Currency Converter!-->
+    <label for="currency">Convert Quotas</label>
+    <form id="currencyForm">
+      <select id="fromCurrency"></select>
+      <select id="toCurrency"></select>
+      <input type="number" id="amount" placeholder="Amount" required />
       <button type="button" onclick="convertCurrency()">Convert</button>
       <p id="result"></p>
     </form>
+
     <!--Week2 Currency Table!-->
     <div id="currencyRateGrid">
       <input

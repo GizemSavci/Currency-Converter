@@ -1,221 +1,163 @@
-//Week3 get Hours
-const d = new Date();
-const currentHour = d.getHours();
-console.log(currentHour);
 
-const openingHour = 9;
-const closingHour = 17;
-
-const marketAvailability = document.getElementById('marketAvailability')
-function checkMarketAvailability(){
-  if(currentHour >= openingHour && currentHour <= closingHour){
-    marketAvailability.textContent = 'Market is open.'
-  }else{
-    marketAvailability.textContent = 'Market is not open. You cannot exchange currency.'
-  }
-}
-
-setInterval(marketAvailability, 5000);
 
 //Update Data structure JS3 Week1
+//Fetch data from API to update dropdown
 fetch("https://raw.githubusercontent.com/GizemSavci/gizem.github.io/main/data/currencies.json")
   .then(response => response.json())
-  .then(items => {
-    items.forEach(item => {
-      console.log(item.rates);
-    });
+  .then(data => {
+    const currencies = data.map(item => item.baseCurrency);
+    updateCurrencyDropdown('fromCurrency', currencies);
+    updateCurrencyDropdown('toCurrency', currencies)
   })
   .catch(error => {
     console.log("Error fetching data:", error);
   });
   
-//Function to add currency rates to base currencies  
-function addCurrency() {
-    //Retrieve values from inputs
-    const baseCurrency = document.getElementById('baseCurrency').value.trim();
-    const conjugateCurrency = document.getElementById('conjugateCurrency').value;
-    const rate = parseFloat(document.getElementById('rate').value);
-  
-    //Find the index of the selected base currency
-    const baseCurrencyIndex = currencyData.findIndex(currency => currency.baseCurrency === baseCurrency);
-  
-    if (baseCurrencyIndex !== -1) {
-      if (!currencyData[baseCurrencyIndex].rates) {
-        currencyData[baseCurrencyIndex].rates = {};
-      }
-  
-      currencyData[baseCurrencyIndex].rates[conjugateCurrency] = rate;
-      //console.log(currencyData);
-      
-      //Clear form inputs
-      document.getElementById('conjugateCurrency').value = "";
-      document.getElementById('rate').value = "";
-    } else {
-      //Create a new entry for the base currency
-      const newCurrency = {
-        timestamp: new Date().getTime(),
-        date: new Date(),
-        baseCurrency: baseCurrency,
-        rates: {
-          [conjugateCurrency]: rate,
-        },
-      };
+//Function to populate dropdown
+function updateCurrencyDropdown(id, currencies){
+  const select = document.getElementById(id);
+  select.innerHTML = '';
+  currencies.forEach(currency => {
+    const option = document.createElement('option');
+    option.value = currency;
+    option.textContent = currency;
+    select.appendChild(option);
+  })
+}
 
-      //Push the new currency to the array
-      currencyData.push(newCurrency);
-  
-      //console.log(currencyData);
-  
-      document.getElementById('conjugateCurrency').value = "";
-      document.getElementById('rate').value = "";
-  
-      //Return the newly added currency
-      return newCurrency.rates;
-    }
-  
-    return currencyData[baseCurrencyIndex] ? currencyData[baseCurrencyIndex].rates : {};
+//Convert and render currencies
+function convertCurrency(){
+  const fromCurrency = document.getElementById('fromCurrency').value;
+  const toCurrency = document.getElementById('toCurrency').value;
+  const amount = document.getElementById('amount').value;
+  fetch("https://raw.githubusercontent.com/GizemSavci/gizem.github.io/main/data/currencies.json")
+  .then(response => response.json())
+  .then(data => {
+    const fromRate = data.find(item => item.baseCurrency === fromCurrency).rates[toCurrency];
+    const convertedAmount = amount * fromRate;
+    document.getElementById('result').textContent = `${amount} ${fromCurrency} equals ${convertedAmount.toFixed(2)} ${toCurrency}`;
+  })
+  .catch(error => {
+    console.log("Error fetching data:", error);
+  });
 }
 
 //Function to generate a table
 function generateCurrencyTable() {
-    const tableContainer = document.getElementById('currencyRateGrid');
-    //Create table and tbody elements
-    const table = document.createElement('table');
-    const tbody = document.createElement('tbody');
-  
-    //Create header row
-    const headerRow = document.createElement('tr');
-    const nameHeader = document.createElement('th');
-    const baseHeader = document.createElement('th');
-    baseHeader.textContent = 'Base Name';
-    nameHeader.textContent = 'Rates Name';
-    headerRow.appendChild(baseHeader);
-    headerRow.appendChild(nameHeader);
-    const rateHeader = document.createElement('th');
-    rateHeader.textContent = 'Rates';
-    headerRow.appendChild(rateHeader);
-    tbody.appendChild(headerRow);
-  
-    //Create rows for each currency and its rates
-    currencyData.forEach(currency => {
-      for (const currencyCode in currency.rates) {
-        if (currency.rates.hasOwnProperty(currencyCode)) {
-          const row = document.createElement('tr');
-          const baseCell = document.createElement('td');
-          baseCell.textContent = currency.baseCurrency;
-          row.appendChild(baseCell);
-          const nameCell = document.createElement('td');
-          nameCell.textContent = currencyCode;
-          row.appendChild(nameCell);
-          const rateCell = document.createElement('td');
-          rateCell.textContent = currency.rates[currencyCode];
-          row.appendChild(rateCell);
-          tbody.appendChild(row);
+  const tableContainer = document.getElementById('currencyRateGrid');
+  //Create table and tbody elements
+  const table = document.createElement('table');
+  const tbody = document.createElement('tbody');
+
+  //Create header row
+  const headerRow = document.createElement('tr');
+  const baseHeader = document.createElement('th');
+  baseHeader.textContent = 'Base Currency';
+  headerRow.appendChild(baseHeader);
+
+  fetch("https://raw.githubusercontent.com/GizemSavci/gizem.github.io/main/data/currencies.json")
+  .then(response => response.json())
+  .then(data => {
+    const currencyNames = [];
+    data.forEach(item => {
+      currencyNames.push(item.baseCurrency);
+      Object.keys(item.rates).forEach(rateCurrency => {
+        if (!currencyNames.includes(rateCurrency)) {
+          currencyNames.push(rateCurrency);
         }
-      }
+      });
     });
-  
-    //Append the table to the container
+
+    currencyNames.forEach(currencyName => {
+      const nameHeader = document.createElement('th');
+      nameHeader.textContent = currencyName;
+      headerRow.appendChild(nameHeader);
+    });
+    tbody.appendChild(headerRow);
+
+    data.forEach(item => {
+      const row = document.createElement('tr');
+      const baseCurrencyCell = document.createElement('td');
+      baseCurrencyCell.textContent = item.baseCurrency;
+      row.appendChild(baseCurrencyCell);
+
+      currencyNames.forEach(currencyName => {
+        const rateCell = document.createElement('td');
+        const rate = (currencyName === item.baseCurrency) ? 1 : item.rates[currencyName];
+        rateCell.textContent = rate.toFixed(2);
+        row.appendChild(rateCell);
+      })
+      tbody.appendChild(row);
+    });
     table.appendChild(tbody);
     tableContainer.innerHTML = '';
     tableContainer.appendChild(table);
-  }
-  
-
-//Function to convert currency
-function convertCurrency() {
-  let mainCurrency = document.getElementById('mainCurrency').value;
-  let targetCurrency = document.getElementById('targetCurrency').value;
-  let amount = parseFloat(document.getElementById('amount').value);
-
-  //Validate the amount
-  if (isNaN(amount)){
-    document.getElementById('result').innerText = 'Please enter a valid amount';
-    return;
-  }
-
-  //Find the index of the main currency in the currencyData array
-  const mainCurrencyIndex = currencyData.findIndex(currency => currency.baseCurrency === mainCurrency);
-
-  if (mainCurrencyIndex !== -1) {
-    //Check if the target currency is in the rates for the main currency
-    if (currencyData[mainCurrencyIndex].rates.hasOwnProperty(targetCurrency)) {
-      const conversionRate = currencyData[mainCurrencyIndex].rates[targetCurrency];
-      const result = amount * conversionRate;
-
-      document.getElementById('result').innerText = `${amount} ${mainCurrency} equals ${result.toFixed(2)} ${targetCurrency}`;
-
-      return result;
-    } else {
-      document.getElementById('result').innerText = 'Conversion rate not available for the target currency';
-    }
-  } else {
-    document.getElementById('result').innerText = 'Main currency not found';
-  }
-}
-
-//Search Function Week2
-function searchCurrency() {
-    const searchFrom = document.getElementById('searchFrom').value;
-    const searchResultContainer = document.getElementById('searchResult');
-
-    //console.log('Search from:', searchFrom);
-
-    //Find the base currency in the currencyData array
-    const baseCurrency = currencyData.find(currency => currency.baseCurrency === searchFrom);
-
-    if (baseCurrency) {
-        const rates = baseCurrency.rates;
-
-        //console.log('Base currency found:', baseCurrency);
-
-        //Clear previous search results
-        if (rates && Object.keys(rates).length > 0) {
-            //Clear previous search results
-            searchResultContainer.innerHTML = '';
-
-            //Loop through rates and display results
-            for (const currencyCode in rates) {
-                if (rates.hasOwnProperty(currencyCode)) {
-                    const rate = rates[currencyCode];
-
-                    //Create HTML elements
-                    const resultItem = document.createElement('p');
-                    resultItem.textContent = `Rate from ${searchFrom} to ${currencyCode}: ${rate}`;
-
-                    //Append to the container
-                    searchResultContainer.appendChild(resultItem);
-                }
-            }
-        } else {
-            //console.log('Currency rates not found or empty.');
-            searchResultContainer.innerText = 'Currency rates not found.';
-        }
-    } else {
-        //console.log('Base currency not found.');
-        searchResultContainer.innerText = 'Base currency not found.';
-    }
+    })
+    .catch(error => {
+      console.log("Error fetching data:", error);
+    });
 }
 
 
-// Week3 Special Value Alert
-const notification = document.getElementById('notification')
+//Function to generate a table
+function generateCurrencyTable() {
+  const tableContainer = document.getElementById('currencyRateGrid');
+  //Create table and tbody elements
+  const table = document.createElement('table');
+  const tbody = document.createElement('tbody');
 
-function checkCurrencyRate() {
-  // Retrieve values when the function is called
-  const baseSpecialValue = document.getElementById('baseSpecialValue').value.trim();
-  const conjugateSpecialValue = document.getElementById('conjugateSpecialValue').value.trim();
+  //Create header row
+  const headerRow = document.createElement('tr');
+  const baseHeader = document.createElement('th');
+  baseHeader.textContent = 'Base Currency';
+  headerRow.appendChild(baseHeader);
 
-  const baseCurrencyIndex = currencyData.findIndex(currency => currency.baseCurrency === baseSpecialValue);
+  fetch("https://raw.githubusercontent.com/GizemSavci/gizem.github.io/main/data/currencies.json")
+    .then(response => response.json())
+    .then(data => {
+      const currencyNames = [];
+      data.forEach(item => {
+        currencyNames.push(item.baseCurrency);
+        Object.keys(item.rates).forEach(rateCurrency => {
+          if (!currencyNames.includes(rateCurrency)) {
+            currencyNames.push(rateCurrency);
+          }
+        });
+      });
 
-  //Loop through rates
-  if (baseCurrencyIndex !== -1) {
-    if (currencyData[baseCurrencyIndex].rates && currencyData[baseCurrencyIndex].rates.hasOwnProperty(conjugateSpecialValue)) {
-      //console.log('Congrats');
-      notification.textContent = 'Today, currency fits your rate alarm.';
-    } else {
-      //console.log('Nope');
-      notification.textContent = 'The currency has no special value today.';
-    }
-  }
+      currencyNames.forEach(currencyName => {
+        const nameHeader = document.createElement('th');
+        nameHeader.textContent = currencyName;
+
+        // Add click event listener for sorting
+        nameHeader.addEventListener('click', () => {
+          sortColumn(currencyName, data);
+        });
+
+        headerRow.appendChild(nameHeader);
+      });
+      tbody.appendChild(headerRow);
+
+      data.forEach(item => {
+        const row = document.createElement('tr');
+        const baseCurrencyCell = document.createElement('td');
+        baseCurrencyCell.textContent = item.baseCurrency;
+        row.appendChild(baseCurrencyCell);
+
+        currencyNames.forEach(currencyName => {
+          const rateCell = document.createElement('td');
+          const rate = (currencyName === item.baseCurrency) ? 1 : item.rates[currencyName];
+          rateCell.textContent = rate.toFixed(2);
+          row.appendChild(rateCell);
+        })
+        tbody.appendChild(row);
+      });
+      table.appendChild(tbody);
+      tableContainer.innerHTML = '';
+      tableContainer.appendChild(table);
+    })
+    .catch(error => {
+      console.log("Error fetching data:", error);
+    });
 }
+
