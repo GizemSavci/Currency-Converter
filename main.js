@@ -45,6 +45,12 @@ function convertCurrency(){
 //Function to generate a table
 function generateCurrencyTable() {
   const tableContainer = document.getElementById('currencyRateGrid');
+  const ascBtn = document.createElement('button')
+  ascBtn.textContent = 'sort by asc';
+
+  const dscBtn = document.createElement('button')
+  dscBtn.textContent = 'sort by dsc';
+
   //Create table and tbody elements
   const table = document.createElement('table');
   const tbody = document.createElement('tbody');
@@ -90,71 +96,10 @@ function generateCurrencyTable() {
       tbody.appendChild(row);
     });
     table.appendChild(tbody);
+
     tableContainer.innerHTML = '';
+    tableContainer.appendChild(ascBtn);
     tableContainer.appendChild(table);
-    })
-    .catch(error => {
-      console.log("Error fetching data:", error);
-    });
-}
-
-
-//Function to generate a table
-function generateCurrencyTable() {
-  const tableContainer = document.getElementById('currencyRateGrid');
-  //Create table and tbody elements
-  const table = document.createElement('table');
-  const tbody = document.createElement('tbody');
-
-  //Create header row
-  const headerRow = document.createElement('tr');
-  const baseHeader = document.createElement('th');
-  baseHeader.textContent = 'Base Currency';
-  headerRow.appendChild(baseHeader);
-
-  fetch("https://raw.githubusercontent.com/GizemSavci/gizem.github.io/main/data/currencies.json")
-    .then(response => response.json())
-    .then(data => {
-      const currencyNames = [];
-      data.forEach(item => {
-        currencyNames.push(item.baseCurrency);
-        Object.keys(item.rates).forEach(rateCurrency => {
-          if (!currencyNames.includes(rateCurrency)) {
-            currencyNames.push(rateCurrency);
-          }
-        });
-      });
-
-      currencyNames.forEach(currencyName => {
-        const nameHeader = document.createElement('th');
-        nameHeader.textContent = currencyName;
-
-        // Add click event listener for sorting
-        nameHeader.addEventListener('click', () => {
-          sortColumn(currencyName, data);
-        });
-
-        headerRow.appendChild(nameHeader);
-      });
-      tbody.appendChild(headerRow);
-
-      data.forEach(item => {
-        const row = document.createElement('tr');
-        const baseCurrencyCell = document.createElement('td');
-        baseCurrencyCell.textContent = item.baseCurrency;
-        row.appendChild(baseCurrencyCell);
-
-        currencyNames.forEach(currencyName => {
-          const rateCell = document.createElement('td');
-          const rate = (currencyName === item.baseCurrency) ? 1 : item.rates[currencyName];
-          rateCell.textContent = rate.toFixed(2);
-          row.appendChild(rateCell);
-        })
-        tbody.appendChild(row);
-      });
-      table.appendChild(tbody);
-      tableContainer.innerHTML = '';
-      tableContainer.appendChild(table);
     })
     .catch(error => {
       console.log("Error fetching data:", error);
