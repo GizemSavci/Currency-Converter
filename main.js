@@ -1,4 +1,4 @@
-
+let ratesArr = [];
 
 //Update Data structure JS3 Week1
 //Fetch data from API to update dropdown
@@ -43,66 +43,94 @@ function convertCurrency(){
 }
 
 //Function to generate a table
-function generateCurrencyTable() {
+function generateCurrencyTable(){
   const tableContainer = document.getElementById('currencyRateGrid');
-  const ascBtn = document.createElement('button')
-  ascBtn.textContent = 'sort by asc';
 
-  const dscBtn = document.createElement('button')
-  dscBtn.textContent = 'sort by dsc';
-
-  //Create table and tbody elements
   const table = document.createElement('table');
   const tbody = document.createElement('tbody');
 
-  //Create header row
   const headerRow = document.createElement('tr');
+
   const baseHeader = document.createElement('th');
   baseHeader.textContent = 'Base Currency';
   headerRow.appendChild(baseHeader);
 
+  const exchangeHeader = document.createElement('th');
+  exchangeHeader.textContent = 'Exchange Currency';
+  headerRow.appendChild(exchangeHeader);
+
+  const rateHeader = document.createElement('th');
+  rateHeader.textContent = 'Rate';
+  headerRow.appendChild(rateHeader);
+
+  //Button for ascending order
+  const ascBtn = document.createElement('button');
+  ascBtn.textContent = 'Sort Ascending';
+  //Add eventlistener for asc
+  ascBtn.addEventListener('click', () => sortTable('asc'));
+  headerRow.appendChild(ascBtn);
+
+  //Button for descending order
+  const dscBtn = document.createElement('button');
+  dscBtn.textContent = 'Sort Descending';
+  //Add eventlistener for dsc
+  ascBtn.addEventListener('click', () => sortTable('desc'));
+  headerRow.appendChild(dscBtn);
+
+
+
   fetch("https://raw.githubusercontent.com/GizemSavci/gizem.github.io/main/data/currencies.json")
-  .then(response => response.json())
-  .then(data => {
-    const currencyNames = [];
-    data.forEach(item => {
-      currencyNames.push(item.baseCurrency);
-      Object.keys(item.rates).forEach(rateCurrency => {
-        if (!currencyNames.includes(rateCurrency)) {
-          currencyNames.push(rateCurrency);
-        }
-      });
-    });
+    .then(response => response.json())
+    //console.log(response)
+    .then(data => {
+      const baseCurrency = "Danish Krone";
 
-    currencyNames.forEach(currencyName => {
-      const nameHeader = document.createElement('th');
-      nameHeader.textContent = currencyName;
-      headerRow.appendChild(nameHeader);
-    });
-    tbody.appendChild(headerRow);
+      const baseRates = findBaseRates(data, baseCurrency);
+      //const baseRates = data.find(item => item.baseCurrency === baseCurrency).rates;
+      //console.log(baseCurrency)
+      //Add headerRows to the table
+      tbody.appendChild(headerRow);
 
-    data.forEach(item => {
-      const row = document.createElement('tr');
-      const baseCurrencyCell = document.createElement('td');
-      baseCurrencyCell.textContent = item.baseCurrency;
-      row.appendChild(baseCurrencyCell);
+      for (const [currency, rate] of Object.entries(baseRates)) {
+        const row = document.createElement('tr');
 
-      currencyNames.forEach(currencyName => {
-        const rateCell = document.createElement('td');
-        const rate = (currencyName === item.baseCurrency) ? 1 : item.rates[currencyName];
-        rateCell.textContent = rate.toFixed(2);
-        row.appendChild(rateCell);
-      })
-      tbody.appendChild(row);
-    });
-    table.appendChild(tbody);
+        const baseCurrencyCell = document.createElement('td');
+        baseCurrencyCell.textContent = baseCurrency;
+        row.appendChild(baseCurrencyCell);
 
-    tableContainer.innerHTML = '';
-    tableContainer.appendChild(ascBtn);
-    tableContainer.appendChild(table);
+        const exchangeCurrencyCell = document.createElement('td');
+        exchangeCurrencyCell.textContent = currency;
+        row.appendChild(exchangeCurrencyCell);
+
+        const ratesCell = document.createElement('td');
+        ratesCell.textContent = rate.toFixed(2);
+        row.appendChild(ratesCell);
+
+        ratesArr.push(parseFloat(rate.toFixed(2)));
+        console.log(ratesArr);
+
+        tbody.appendChild(row);
+      }
+
+      table.appendChild(tbody);
+      tableContainer.innerHTML = '';
+      tableContainer.appendChild(table);
     })
     .catch(error => {
       console.log("Error fetching data:", error);
     });
+
+
 }
 
+function sortTable(order) {
+
+  ratesArr.sort((a, b) => (order === 'asc' ? a - b : b - a));
+
+  generateCurrencyTable();
+}
+
+function findBaseRates(data, baseCurrency) {
+  const baseCurrencyData = data.find(item => item.baseCurrency === baseCurrency);
+  return baseCurrencyData ? baseCurrencyData.rates : {};
+}
