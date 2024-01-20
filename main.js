@@ -1,18 +1,26 @@
 let ratesArr = [];
 
-//Update Data structure JS3 Week1
-//Fetch data from API to update dropdown
-fetch("https://raw.githubusercontent.com/GizemSavci/gizem.github.io/main/data/currencies.json")
-  .then(response => response.json())
-  .then(data => {
-    const currencies = data.map(item => item.baseCurrency);
-    updateCurrencyDropdown('fromCurrency', currencies);
-    updateCurrencyDropdown('toCurrency', currencies)
-  })
-  .catch(error => {
-    console.log("Error fetching data:", error);
-  });
-  
+//Week3 get Hours
+setInterval(checkMarketAvailability, 5000);
+
+// Function to check market availability
+function checkMarketAvailability() {
+  const d = new Date();
+  const currentHour = d.getHours();
+  console.log(currentHour);
+
+  const openingHour = 9;
+  const closingHour = 17;
+
+  const marketAvailability = document.getElementById('marketAvailability');
+
+  if (currentHour >= openingHour && currentHour <= closingHour) {
+    marketAvailability.textContent = 'Market is open. The conversion fee is 6%.';
+  } else {
+    marketAvailability.textContent = 'Market is not open. The conversion fee is 16%.';
+  }
+}
+
 //Function to populate dropdown
 function updateCurrencyDropdown(id, currencies){
   const select = document.getElementById(id);
@@ -24,6 +32,24 @@ function updateCurrencyDropdown(id, currencies){
     select.appendChild(option);
   })
 }
+
+//Update Data structure JS3 Week1
+//Fetch data from API to update dropdown
+fetch("https://raw.githubusercontent.com/GizemSavci/gizem.github.io/main/data/currencies.json")
+  .then(response => response.json())
+  .then(data => {
+    const currencies = data.map(item => item.baseCurrency);
+    updateCurrencyDropdown('fromCurrency', currencies);
+    updateCurrencyDropdown('toCurrency', currencies);
+
+    updateCurrencyDropdown('baseCurrencyAlarm', currencies);
+    updateCurrencyDropdown('exchangeCurrencyAlarm', currencies);
+  })
+  .catch(error => {
+    console.log("Error fetching data:", error);
+  });
+  
+
 
 //Convert and render currencies
 function convertCurrency(){
@@ -83,7 +109,7 @@ function generateCurrencyTable(){
     .then(response => response.json())
     //console.log(response)
     .then(data => {
-      const baseCurrency = "Danish Krone";
+      const baseCurrency = "DKK";
 
       const baseRates = findBaseRates(data, baseCurrency);
       //const baseRates = data.find(item => item.baseCurrency === baseCurrency).rates;
@@ -133,4 +159,86 @@ function sortTable(order) {
 function findBaseRates(data, baseCurrency) {
   const baseCurrencyData = data.find(item => item.baseCurrency === baseCurrency);
   return baseCurrencyData ? baseCurrencyData.rates : {};
+}
+
+//Search currencies
+function searchCurrency() {
+  const searchFrom = document.getElementById('searchFrom').value;
+  const searchResultText = document.getElementById('searchResult');
+
+  fetch("https://raw.githubusercontent.com/GizemSavci/gizem.github.io/main/data/currencies.json")
+    .then(response => response.json())
+    .then(data => {
+      const baseCurrency = data.find(currency => currency.baseCurrency === searchFrom);
+
+      if (baseCurrency) {
+        const rates = baseCurrency.rates;
+
+        // Display search results
+        searchResultText.innerHTML = '';
+
+        const header = document.createElement('h3');
+        header.textContent = `Exchange Rates for ${searchFrom}`;
+        searchResultText.appendChild(header);
+
+        const list = document.createElement('ul');
+        for (const [currency, rate] of Object.entries(rates)) {
+          const listItem = document.createElement('li');
+          listItem.textContent = `${currency}: ${rate.toFixed(2)}`;
+          list.appendChild(listItem);
+        }
+        searchResultText.appendChild(list);
+      } else {
+        searchResultText.textContent = `Base currency ${searchFrom} not found.`;
+      }
+    })
+    .catch(error => {
+      console.log("Error fetching data:", error);
+    });
+}
+
+
+const notification = document.getElementById('notification')
+
+function checkCurrencyRate() {
+  // Retrieve values when the function is called
+  const baseSpecialValue = document.getElementById('baseSpecialValue').value.trim();
+  const conjugateSpecialValue = document.getElementById('conjugateSpecialValue').value.trim();
+
+  const baseCurrencyIndex = currencyData.findIndex(currency => currency.baseCurrency === baseSpecialValue);
+
+  //Loop through rates
+  if (baseCurrencyIndex !== -1) {
+    if (currencyData[baseCurrencyIndex].rates && currencyData[baseCurrencyIndex].rates.hasOwnProperty(conjugateSpecialValue)) {
+      //console.log('Congrats');
+      notification.textContent = 'Today, currency fits your rate alarm.';
+    } else {
+      //console.log('Nope');
+      notification.textContent = 'The currency has no special value today.';
+    }
+  }
+}
+
+
+
+function createAlarm(){
+  const baseCurrencyInput = document.getElementById('baseCurrencyAlarm').value;
+  const exchangeCurrencyInput = document.getElementById('exchangeCurrencyAlarm').value;
+  const desiredRate = parseFloat(document.getElementById('rateAlarm').value);
+
+  const baseCurrencyInputIndex = currencyData.findIndex(currency => currency.baseCurrency === baseCurrencyInput);
+
+  if (baseCurrencyInputIndex !==-1) {
+    const rates = currencyData[baseCurrencyInputIndex].rates;
+
+    if (rates && rates.hasOwnProperty(exchangeCurrencyInput)){
+      const currentRate = rates[exchangeCurrencyInput];
+
+      if (currentRate >= desiredRate) {
+        window.alert(`Rate alarm met!\nCurrent Rate: ${currentRate.toFixed(2)}`);
+      } else {
+        window.alert(`Rate alarm not met.\nCurrent Rate: ${currentRate.toFixed(2)}`);
+      }
+    }
+  }
 }

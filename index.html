@@ -6,7 +6,12 @@
     <title>Currency Converter</title>
   </head>
   <body>
-    <!--JS3 Week1 Currency Converter!-->
+    <!--JS3 Week3 Enhancement!-->
+
+    <div id="marketHours">
+      <p id="marketAvailability"></p>
+    </div>
+
     <label for="currency">Convert Quotas</label>
     <form id="currencyForm">
       <select id="fromCurrency"></select>
@@ -33,24 +38,15 @@
       <p id="searchResult"></p>
     </form>
 
-    <!--Week3 Search Field!-->
-    <div id="marketHours">
-      <p id="marketAvailability"></p>
-    </div>
+    <!--Rate Alarm Field!-->
+
     <div id="ValueAlert">
-      <input
-        type="text"
-        id="baseSpecialValue"
-        placeholder="Enter your 'Target Currency"
-      />
-      <input
-        type="text"
-        id="conjugateSpecialValue"
-        placeholder="Enter your Exchange Currency"
-      />
-      <input type="text" id="specialRate" placeholder="Enter your alarm rate" />
-      <p id="notification"></p>
-      <button type="button" onclick="checkCurrencyRate()">Alarm</button>
+      <form id="CurrencyAlarm">
+        <select id="baseCurrencyAlarm"></select>
+        <select id="exchangeCurrencyAlarm"></select>
+        <input type="number" id="rateAlarm" placeholder="Rate" required />
+        <button type="button" onclick="createAlarm()">Set Alarm</button>
+      </form>
     </div>
     <script src="main.js"></script>
   </body>
