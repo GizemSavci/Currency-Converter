@@ -1,4 +1,6 @@
 let ratesArr = [];
+let currencyData = [];
+
 
 //Week3 get Hours
 setInterval(checkMarketAvailability, 5000);
@@ -38,6 +40,7 @@ function updateCurrencyDropdown(id, currencies){
 fetch("https://raw.githubusercontent.com/GizemSavci/gizem.github.io/main/data/currencies.json")
   .then(response => response.json())
   .then(data => {
+    currencyData = data;
     const currencies = data.map(item => item.baseCurrency);
     updateCurrencyDropdown('fromCurrency', currencies);
     updateCurrencyDropdown('toCurrency', currencies);
@@ -89,6 +92,10 @@ function generateCurrencyTable(){
   rateHeader.textContent = 'Rate';
   headerRow.appendChild(rateHeader);
 
+  const trendHeader = document.createElement('th');
+  trendHeader.textContent = 'Trend';
+  headerRow.appendChild(trendHeader)
+
   //Button for ascending order
   const ascBtn = document.createElement('button');
   ascBtn.textContent = 'Sort Ascending';
@@ -112,7 +119,6 @@ function generateCurrencyTable(){
       const baseCurrency = "DKK";
 
       const baseRates = findBaseRates(data, baseCurrency);
-      //const baseRates = data.find(item => item.baseCurrency === baseCurrency).rates;
       //console.log(baseCurrency)
       //Add headerRows to the table
       tbody.appendChild(headerRow);
@@ -132,6 +138,19 @@ function generateCurrencyTable(){
         ratesCell.textContent = rate.toFixed(2);
         row.appendChild(ratesCell);
 
+        const trendCell = document.createElement('td');
+        //trendCell.textContent = '';
+        const currentCurrencyData = data.find(item => item.baseCurrency === baseCurrency && item.rates.hasOwnProperty(currency));
+
+        // Check the trending value and set the color accordingly
+        if (currentCurrencyData && currentCurrencyData.trending === "increasing") {
+          trendCell.innerHTML = '<span style="color: green;">increasing</span>';
+        } else if (currentCurrencyData && currentCurrencyData.trending === "decreasing") {
+          trendCell.innerHTML = '<span style="color: red;">decreasing</span>';
+        }
+
+        row.appendChild(trendCell);
+
         ratesArr.push(parseFloat(rate.toFixed(2)));
         console.log(ratesArr);
 
@@ -146,8 +165,10 @@ function generateCurrencyTable(){
       console.log("Error fetching data:", error);
     });
 
-
 }
+
+
+
 
 function sortTable(order) {
 
