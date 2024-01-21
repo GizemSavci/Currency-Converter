@@ -1,0 +1,502 @@
+html {
+  font-family: $typography-font-family;
+  font-size: $root-font-size;
+}
+
+body {
+  font-size: font-size($typography-base-font-size);
+}
+
+p {
+  line-height: units($typography-base-line-height, 'rem');
+  margin-bottom: units(3, 'rem');
+  margin-top: units(4, 'rem');
+}
+
+a {
+  color: color($theme-color-link);
+
+  &:hover,
+  &.link-hover {
+    color: color($theme-color-link-hover);
+
+    &:disabled,
+    .disabled {
+      background-color: transparent !important;
+    }
+
+  }
+
+  &:focus,
+  &.link-focus {
+    color: color($theme-color-link-focus);
+    @include focus();
+  }
+
+  &:visited,
+  &.link-visited {
+    color: color($theme-color-link-visited);
+  }
+
+  &:disabled,
+  &.disabled {
+    cursor: not-allowed !important;
+    color: color('disabled') !important;
+    opacity: 0.3;
+
+    &:focus {
+      outline: none;
+      background-color: transparent;
+    }
+  }
+
+  .background-dark & {
+    &:not(.button) {
+      color: color('white');
+    }
+
+    &:disabled,
+    &.disabled {
+      box-shadow: none !important;
+      cursor: not-allowed !important;
+      color: color('disabled-light') !important;
+      box-shadow: none !important;
+      outline-offset: inherit !important;
+
+      &:focus {
+        outline: none;
+        background-color: transparent;
+      }
+    }
+  }
+
+  &.bold-link {
+    font-weight: font-weight("semibold");
+  }
+
+  &:not(.button, .full-width-image) {
+    max-width: $typography-text-max-width;
+  }
+}
+
+@mixin h1{
+  @include responsive-style($typography-h1-font-size, font-size);
+  @include responsive-style($typography-h1-line-height, line-height);
+  @include responsive-style($typography-h1-letter-spacing, letter-spacing);
+  font-weight: font-weight("bold");
+  color: color('black');
+  text-transform: none;
+  word-break: break-word;
+}
+@mixin h2 {
+  @include responsive-style($typography-h2-font-size, font-size);
+  @include responsive-style($typography-h2-line-height, line-height);
+  @include responsive-style($typography-h2-letter-spacing, letter-spacing);
+  font-weight: font-weight("semibold");
+  color: color('black');
+  text-transform: none;
+}
+@mixin h3 {
+  @include responsive-style($typography-h3-font-size, font-size);
+  @include responsive-style($typography-h3-line-height, line-height);
+  @include responsive-style($typography-h3-letter-spacing, letter-spacing);
+  font-weight: font-weight("semibold");
+  color: color('black');
+  text-transform: none;
+}
+@mixin h4{
+  @include responsive-style($typography-h4-font-size, font-size);
+  @include responsive-style($typography-h4-line-height, line-height);
+  @include responsive-style($typography-h4-letter-spacing, letter-spacing);
+  font-weight: font-weight("semibold");
+  color: color('black');
+  text-transform: none;
+}
+@mixin h5 {
+  @include responsive-style($typography-h5-font-size, font-size);
+  @include responsive-style($typography-h5-line-height, line-height);
+  @include responsive-style($typography-h5-letter-spacing, letter-spacing);
+  font-weight: font-weight("semibold");
+  color: color('black');
+  text-transform: none;
+}
+
+@mixin h6 {
+  @include responsive-style($typography-h6-font-size, font-size);
+  @include responsive-style($typography-h6-line-height, line-height);
+  @include responsive-style($typography-h6-letter-spacing, letter-spacing);
+  font-weight: font-weight("medium");
+  color: color('black');
+}
+@mixin body-copy-text {
+  font-size: font-size($typography-body-text-font-size);
+  line-height: units($typography-body-text-line-height, 'rem');
+  font-weight: font-weight($typography-body-text-font-weight);
+  color: color($typography-body-text-color);
+  text-transform: none;
+  letter-spacing: $typography-body-text-letter-spacing;
+}
+@mixin caption {
+  font-size: font-size($typography-caption-font-size);
+  line-height: units($typography-caption-line-height, 'rem');
+  color: color($typography-caption-text-color);
+  letter-spacing: $typography-caption-letter-spacing;
+}
+@mixin subheading {
+  font-size: font-size($typography-subheading-font-size);
+  line-height: units($typography-subheading-line-height, 'rem');
+  color: color($typography-subheading-text-color);
+  letter-spacing: $typography-subheading-letter-spacing;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+@mixin form-label-text {
+  font-size: font-size($typography-form-label-font-size);
+  line-height: units($typography-form-label-line-height, 'rem');
+  font-weight: font-weight("semibold");
+  color: color($typography-form-label-text-color);
+  text-transform: none;
+}
+@mixin small-text {
+  font-size: font-size($typography-small-text-font-size);
+  line-height: units($typography-small-text-line-height, 'rem');
+  font-weight: font-weight("normal");
+  letter-spacing: $typography-small-text-letter-spacing;
+}
+
+@mixin color-text-positive {
+  color: color($theme-color-text-positive);
+}
+
+@mixin color-text-negative {
+  color:color($theme-color-text-negative);
+}
+
+h1, .h1 {
+  @include h1;
+}
+h2, .h2{
+  @include h2;
+}
+
+h3, .h3 {
+  @include h3;
+}
+
+h4, .h4{
+  @include h4;
+}
+
+h5, .h5{
+  @include h5;
+}
+
+h6, .h6{
+  @include h6;
+}
+
+p, .body-text, .body-copy-text{
+  @include body-copy-text;
+}
+figcaption, .figcaption{
+  @include caption;
+  p{
+    @include caption;
+  }
+}
+.subheading{
+  @include subheading;
+}
+
+.font-lead {
+  font-size: font-size($typography-lead-font-size);
+  font-weight: font-weight("normal");
+  line-height: units($typography-lead-line-height, 'rem');
+  max-width: $typography-text-max-width;
+  color: color('ink');
+  letter-spacing: $typography-lead-letter-spacing;
+}
+.article{
+  font-size: font-size($typography-article-font-size);
+  font-weight: font-weight("normal");
+  line-height: units($typography-article-line-height, 'rem');
+  max-width: $typography-text-max-width;
+  color: color('ink');
+  letter-spacing: $typography-article-letter-spacing;
+}
+small, .small-text {
+  @include small-text();
+}
+
+.weight-normal {
+  font-weight: font-weight("normal");
+}
+
+.weight-semibold {
+  font-weight: font-weight("semibold");
+}
+.facit {
+  border-bottom: border(10);
+  border-bottom-style: double;
+  border-bottom-width: 4px;
+}
+strong, b, .bold {
+  font-weight: font-weight("bold");
+}
+
+.italic, em {
+  font-style: italic;
+}
+
+
+.form-label {
+  @include form-label-text;
+}
+
+
+h1:focus, .h1:focus,
+h2:focus, .h2:focus,
+h3:focus, .h3:focus,
+h4:focus, .h4:focus,
+h5:focus, .h5:focus,
+h6:focus, .h6:focus {
+  outline: none;
+}
+
+h1, .h1{
+  margin-bottom: units(4, 'rem');
+  margin-top: 0rem;
+}
+
+h2, .h2 {
+  margin-top: units(6, 'rem');
+  margin-bottom: units(4, 'rem');
+  @include media-breakpoint-up(md) {
+    margin-top: units(7, 'rem');
+  }
+}
+h3, .h3{
+  margin-top: units(6, 'rem');
+  margin-bottom: units(4, 'rem');
+  @include media-breakpoint-up(md) {
+    margin-top: units(7, 'rem');
+  }
+}
+h4, .h4{
+  margin-top: units(5, 'rem');
+  margin-bottom:  units(4, 'rem');
+}
+h5, .h5{
+  margin-top: units(5, 'rem');
+  margin-bottom: 0;
+}
+h6, .h6{
+  margin-top: units(5, 'rem');
+  margin-bottom: 0;
+}
+.font-lead{
+  margin-top: units(5, 'rem');
+  margin-bottom:  units(4, 'rem');
+}
+p, .body-text{
+  margin-top: units(4, 'rem');
+  margin-bottom: units(4, 'rem');
+}
+h5, .h5, h6, .h6{
+  & + p, & + ul, & + ol{
+    margin-top: 0; //if next sibling after h5 og h6 is a p-tag, no margin-top on p-tag.
+  }
+}
+
+//a function link, does not look like a link
+button.function-link{
+  background: none;
+  padding: 0px;
+  text-decoration: underline;
+  text-align: left;
+}
+.function-link{
+  border: none;
+  @include body-copy-text;
+  cursor: pointer;
+  display: inline-block;
+  &:hover, &:visited, &:focus{
+    color: color('ink');
+  }
+  .icon-svg{
+    margin-right: units(2);
+    fill: currentColor;
+  }
+
+  &.link-right {
+    text-align: right;
+  }
+}
+
+.back-link{
+  border-bottom: border(10);
+  color: color('black');
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  margin-bottom: units(5);
+  @include media-breakpoint-up(lg) {
+    margin-bottom: units(6);
+  }
+  line-height: 2.4rem;
+  padding-left: 14px;
+  &::before{
+    display: block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-color: transparent;
+    -webkit-clip-path: polygon(0% 50%, 100% 100%, 100% 0%);
+    clip-path: polygon(0% 50%, 100% 100%, 100% 0%);
+    border-width: 5px 6px 5px 0;
+    border-right-color: inherit;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+  }
+  &:active, &:focus, &:hover, &:visited{
+    color: color('black');
+  }
+}
+
+.icon-link{
+  line-height: units($typography-body-text-line-height, 'rem');
+  .icon-svg{
+    margin-left: units(2);
+    width: 1.6rem;
+    height: 1.6rem;
+    fill: currentColor;
+  }
+}
+
+ //styling for link in heading
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6{
+  a, a:hover, a:visited, a:focus{
+    text-decoration: underline;
+  }
+
+  a.search-link {
+    text-decoration: none;
+    &:visited {
+      text-decoration: underline;
+    }
+    &:focus {
+      text-decoration: none;
+    }
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+// Remove user agent styles
+cite,
+var,
+address,
+dfn {
+  font-style: normal;
+}
+
+//max-width of 66ch for text
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6{
+  max-width: $typography-text-max-width;
+}
+p,
+ul:not(.accordion):not(.accordion-bordered):not(.nav-primary):not(.inline-list):not(.tabnav):not(.sidenav-list):not(.sidenav-sub_list),
+ol:not(.accordion):not(.accordion-bordered):not(.sidenav-list){
+  max-width: $typography-text-max-width;
+}
+.font-lead{
+  max-width: $typography-text-max-width;
+}
+
+.form-label, .form-hint, .form-error-message{
+  max-width: $typography-text-max-width;
+}
+.form-checkbox+label, .form-radio+label{
+  max-width: $typography-text-max-width;
+}
+
+.displayheading {
+  &-1 {
+    font-weight: font-weight("medium");
+    font-size: font-size($typography-display-1-heading-font-size);
+    line-height: units($typography-display-1-heading-line-height, 'rem');
+    margin-bottom: 0;
+    color: color('black');
+    letter-spacing: $typography-display-1-heading-letter-spacing;
+  }
+  &-2 {
+    font-weight: font-weight("medium");
+    font-size: font-size($typography-display-2-heading-font-size);
+    line-height: units($typography-display-2-heading-line-height, 'rem');
+    margin-bottom: 0;
+    color: color('black');
+    letter-spacing: $typography-display-2-heading-letter-spacing;
+  }
+}
+
+.text-positive {
+  @include color-text-positive();
+}
+
+.text-negative {
+  @include color-text-negative();
+}
+
+.color-text-black {
+  color: color('black');
+}
+
+.background-dark {
+  background-color: color('black');
+
+  p, span{
+    color: color('white');
+  }
+}
+
+.field-group-title {
+  font-weight: font-weight("normal");
+
+  ~ hr {
+    border: 2px solid color('black');
+  }
+}
+
+h1, h2, h3, h4, h5, h6, p, legend, strong, b, cite, var, address, dfn{
+  text-rendering: optimizeLegibility; //Vigtig — den er vidst default i Webkit nu, men den har effekt på andre engines
+  -webkit-font-smoothing: none; //Fikser for tyk typografi i Webkit-baserede browsers)
+  -webkit-font-smoothing: subpixel-antialiased;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "kern";
+  -webkit-font-feature-settings: "kern";
+  -moz-font-feature-settings: "kern";
+  -moz-font-feature-settings: "kern=1";
+}
+
+.uppercase{
+  text-transform: uppercase;
+}
+.lowercase{
+  text-transform: lowercase;
+}

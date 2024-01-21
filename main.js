@@ -1,3 +1,4 @@
+import "dkfds";
 let ratesArr = [];
 let currencyData = [];
 

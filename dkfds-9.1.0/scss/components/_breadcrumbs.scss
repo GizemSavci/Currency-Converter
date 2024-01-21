@@ -1,0 +1,62 @@
+.breadcrumbs {
+  color: color($breadcrumbs-text-color);
+  font-size: font-size($breadcrumbs-font-size);
+}
+
+.breadcrumbs__list {
+  &:after {
+    content: "";
+    display: block;
+    clear: both;
+  }
+
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.breadcrumbs__list-item {
+  display: block;
+  list-style-type: none;
+  position: relative;
+  margin-top: 0;
+  margin-bottom: units(1);
+  margin-left: units(3);
+  padding-left: units(3) + $breadcrumbs-chevron-altitude-calculated;
+  float: left;
+
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    // Offset by the difference between the width of the non-rotated square
+    // and its width when rotated
+    left: (($breadcrumbs-chevron-altitude-calculated * -2) + $breadcrumbs-chevron-size + $breadcrumbs-chevron-border-width);
+    width: $breadcrumbs-chevron-size;
+    height: $breadcrumbs-chevron-size;
+    margin: auto 0;
+    transform: rotate(45deg);
+    border: solid;
+    border-width: $breadcrumbs-chevron-border-width $breadcrumbs-chevron-border-width 0 0;
+    border-color: color($breadcrumbs-chevron-border-colour);
+  }
+
+  &:first-child {
+    margin-left: 0;
+    padding-left: 0;
+
+    &:before {
+      content: none;
+      display: none;
+    }
+  }
+}
+
+.breadcrumbs__link {
+  color: color($breadcrumbs-text-color);
+  &:visited, &:hover, &:active{
+    color: color($breadcrumbs-text-color);
+  }
+}

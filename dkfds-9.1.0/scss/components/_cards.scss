@@ -1,0 +1,235 @@
+.card {
+  position: relative;
+  border-radius: units(0);
+  box-shadow: shadow($cards-shadow);
+  border: border($cards-border);
+  overflow: hidden;
+  background: color($cards-background-color);
+
+  //small card
+  &-small {
+    > :last-of-type {
+      padding-bottom:units(5);
+    }
+  }
+  //medium card
+  &-medium {
+    //The last
+    > :last-of-type {
+      padding-bottom:units(5);
+    }
+  }
+  //large card
+  &-large {
+    > :last-of-type {
+      padding-bottom:units(5);
+    }
+  }
+
+  &-align-height {
+    height: 100%;
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+
+    > *{
+      width: 100%;
+    }
+
+    .card-footer{
+      margin-top: auto;
+    }
+  }
+
+  p {
+    max-width: 60ch;
+    margin-top:units(4);
+    margin-bottom: units(0);
+    &:first-child {
+      margin-top:units(0);
+    }
+  }
+  h1, .h1,
+  h2, .h2,
+  h3, .h3,
+  h4, .h4,
+  h5, .h5 {
+    margin: units(0);
+  }
+}
+//card-header
+.card-header {
+  background-color: color($cards-header-background-color);
+  padding: units(4) units(5);
+  .header-title {
+    @include body-copy-text;
+    font-weight: font-weight("semibold");
+    color: color($cards-heading-color);
+    margin:units(0);
+
+    &.large-text {
+      @include h1;
+      color: color($cards-heading-large-color);
+    }
+  }
+  .sub-header {
+    @include body-copy-text;
+    margin-top:  units(0);
+    margin-bottom: units(0);
+    color: color($cards-sub-heading-color);
+  }
+}
+.card-text {
+  background-color: color($cards-text-background-color);
+  padding: units(4) units(5);
+  .text {
+    @include body-copy-text;
+    margin-top: units(4);
+    color: color($cards-text-color);
+    margin-bottom: units(0);
+  }
+}
+
+//card-content
+.card-content {
+  @include body-copy-text;
+  padding: units(0);
+  color: color($cards-text-color);
+  background-color: color($cards-content-background-color);
+  ul {
+    margin-bottom:units(0);
+  }
+  div:first-child {
+    margin-top:units(0);
+  }
+  .content-text {
+    margin-top:units(4);
+  }
+  .content {
+    text-align: center;
+  }
+}
+
+//card-action
+.card-action {
+  @include body-copy-text;
+  padding: units(4) units(5);
+  color: color($cards-text-color);
+  margin-bottom: units(0);
+  background-color: color($cards-action-background-color);
+
+  div:first-child {
+    margin-top:units(0);
+  }
+
+  &:last-child {
+    border-bottom: units(0);
+  }
+  .action-buttons {
+    button {
+      margin-right: units(4);
+      margin-top:units(3);
+
+      @include media-breakpoint-up(md) {
+        margin-right: units(4);
+        margin-top:units(3);
+      }
+    }
+    .button + .button{
+      @include media-breakpoint-up(sm) {
+        margin-left: 0px;
+        &:first-child{
+          margin-left: 0;
+        }
+      }
+    }
+  }
+  .action-links {
+    margin-top:units(4);
+    ul {
+      @include unstyled-list();
+      padding-left: units(0);
+      li {
+        margin-top:units(3) !important;
+      }
+    }
+  }
+  .action-functionlinks {
+    margin-top:units(4);
+    text-align: right;
+    .function-link {
+      margin-left: units(4);
+    }
+  }
+}
+
+//If text comes after header
+.card-header + .card-text{
+  padding-top:units(0);
+}
+//If content comes after header
+.card-header + .card-content {
+  padding-top:units(0);
+}
+//If action comes after header
+.card-header + .card-action{
+  padding-top:units(0);
+}
+//If header comes after header
+.card-header + .card-header{
+  padding-top:units(0);
+}
+//If header comes after text
+.card-text + .card-header {
+  padding-top:units(0);
+}
+//If content comes after text
+.card-text + .card-content {
+  padding-top:units(0);
+}
+//If action comes after text
+.card-text + .card-action{
+  padding-top:units(0);
+}
+//If text comes after text
+.card-text + .card-text{
+  padding-top:units(0);
+}
+//If text comes after action
+.card-action + .card-text{
+  padding-top:units(0);
+}
+//If header comes after action
+.card-action + .card-header{
+  padding-top:units(0);
+}
+//If content comes after action
+.card-action + .card-content{
+  padding-top:units(0);
+}
+//If action comes after action
+.card-action + .card-action{
+  padding-top:units(0);
+}
+.card {
+  > .list-group:first-child {
+      .list-group-item:first-child {
+          border-radius: 0px;
+      }
+  }
+
+  > .list-group:last-child {
+      .list-group-item:last-child {
+          border-radius: 0px;
+      }
+  }
+}
+
+.card-center {
+  text-align: center;
+}
