@@ -1,4 +1,4 @@
-import "dkfds";
+//<script src='dkfds-9.1.0/dist/js/dkfds.js'></script>
 let ratesArr = [];
 let currencyData = [];
 
@@ -100,6 +100,7 @@ function generateCurrencyTable(){
   //Button for ascending order
   const ascBtn = document.createElement('button');
   ascBtn.textContent = 'Sort Ascending';
+  //dscBtn.classList.add('button', 'button-primary');
   //Add eventlistener for asc
   ascBtn.addEventListener('click', () => sortTable('asc'));
   headerRow.appendChild(ascBtn);
@@ -107,6 +108,7 @@ function generateCurrencyTable(){
   //Button for descending order
   const dscBtn = document.createElement('button');
   dscBtn.textContent = 'Sort Descending';
+  //dscBtn.classList.add('button', 'button-primary');
   //Add eventlistener for dsc
   ascBtn.addEventListener('click', () => sortTable('desc'));
   headerRow.appendChild(dscBtn);

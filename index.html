@@ -6,7 +6,7 @@
     <link
       type="text/css"
       rel="stylesheet"
-      href="[path to dkfds folder]/dist/css/dkfds.css"
+      href="dkfds-9.1.0/css/dkfds.min.css"
     />
     <title>Currency Converter</title>
   </head>
@@ -17,12 +17,18 @@
       <p id="marketAvailability"></p>
     </div>
 
-    <label for="currency">Convert Quotas</label>
+    <label class="form-label" for="currency">Convert Quotas</label>
     <form id="currencyForm">
-      <select id="fromCurrency"></select>
-      <select id="toCurrency"></select>
+      <select class="form-select" id="fromCurrency"></select>
+      <select class="form-select" id="toCurrency"></select>
       <input type="number" id="amount" placeholder="Amount" required />
-      <button type="button" onclick="convertCurrency()">Convert</button>
+      <button
+        type="button"
+        onclick="convertCurrency()"
+        class="button button-primary"
+      >
+        >Convert
+      </button>
       <p id="result"></p>
     </form>
 
@@ -32,6 +38,7 @@
         type="button"
         value="Generate a table"
         onclick="generateCurrencyTable()"
+        class="button button-primary"
       />
     </div>
 
@@ -39,7 +46,13 @@
     <form id="searchForm">
       <input type="text" id="searchFrom" placeholder="From currency" />
       <!--<input type="text" id="searchTo" placeholder="To currency" />!-->
-      <button type="button" onclick="searchCurrency()">Search</button>
+      <button
+        type="button"
+        onclick="searchCurrency()"
+        class="button button-primary"
+      >
+        Search
+      </button>
       <p id="searchResult"></p>
     </form>
 
@@ -50,10 +63,16 @@
         <select id="baseCurrencyAlarm"></select>
         <select id="exchangeCurrencyAlarm"></select>
         <input type="number" id="rateAlarm" placeholder="Rate" required />
-        <button type="button" onclick="createAlarm()">Set Alarm</button>
+        <button
+          type="button"
+          onclick="createAlarm()"
+          class="button button-primary"
+        >
+          Set Alarm
+        </button>
       </form>
     </div>
     <script src="main.js"></script>
-    <script src="[path to dkfds folder]/dist/js/dkfds.js"></script>
+    <script src="dkfds-9.1.0/dist/js/dkfds.js"></script>
   </body>
 </html>
