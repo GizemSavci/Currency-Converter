@@ -3,23 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      type="text/css"
-      rel="stylesheet"
-      href="dkfds-9.1.0/css/dkfds.min.css"
-    />
+
     <title>Currency Converter</title>
   </head>
   <body>
-    <!--JS3 Week3 Enhancement!-->
-
-    <div id="marketHours">
-      <p id="marketAvailability"></p>
-    </div>
-
-    <label class="form-label" for="currency">Convert Quotas</label>
     <form id="currencyForm">
+      <label class="form-label" for="currency">Convert Currencies</label>
       <select class="form-select" id="fromCurrency"></select>
+      <button type="button" id="switchCurrency">Switch</button>
       <select class="form-select" id="toCurrency"></select>
       <input type="number" id="amount" placeholder="Amount" required />
       <button
@@ -27,52 +18,11 @@
         onclick="convertCurrency()"
         class="button button-primary"
       >
-        >Convert
+        Convert
       </button>
       <p id="result"></p>
     </form>
-
-    <!--Week2 Currency Table!-->
-    <div id="currencyRateGrid">
-      <input
-        type="button"
-        value="Generate a table"
-        onclick="generateCurrencyTable()"
-        class="button button-primary"
-      />
-    </div>
-
-    <!--Week2 Search Field!-->
-    <form id="searchForm">
-      <input type="text" id="searchFrom" placeholder="From currency" />
-      <!--<input type="text" id="searchTo" placeholder="To currency" />!-->
-      <button
-        type="button"
-        onclick="searchCurrency()"
-        class="button button-primary"
-      >
-        Search
-      </button>
-      <p id="searchResult"></p>
-    </form>
-
-    <!--Rate Alarm Field!-->
-
-    <div id="ValueAlert">
-      <form id="CurrencyAlarm">
-        <select id="baseCurrencyAlarm"></select>
-        <select id="exchangeCurrencyAlarm"></select>
-        <input type="number" id="rateAlarm" placeholder="Rate" required />
-        <button
-          type="button"
-          onclick="createAlarm()"
-          class="button button-primary"
-        >
-          Set Alarm
-        </button>
-      </form>
-    </div>
-    <script src="main.js"></script>
-    <script src="dkfds-9.1.0/dist/js/dkfds.js"></script>
+    <script defer src="helpers.js"></script>
+    <script defer src="main.js"></script>
   </body>
 </html>
