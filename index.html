@@ -22,24 +22,29 @@
       </button>
       <p id="result"></p>
     </form>
-    <div id="searchByNames">
-      <form id="searchForm">
-        <input type="text" id="searchFrom" placeholder="Search currency" />
-        <button type="button" id="searchCurrency" class="button button-primary">
-          Search
-        </button>
-      </form>
-    </div>
-    <table id="currencyRateGrid">
-      <input
-        type="button"
-        value="Generate a table"
-        id="generateTable"
-        class="button button-primary"
-      />
-    </table>
 
-    <script defer src="helpers.js"></script>
-    <script defer src="main.js"></script>
+    <div id="currencyRateGrid">
+      <input type="text" id="searchCurrency" placeholder="Search currency" />
+      <button
+        type="button"
+        id="searchBaseCurrencyButton"
+        onclick="searchBaseCurrency()"
+      >
+        Search
+      </button>
+
+      <table id="currencyTable">
+        <tr id="tableHeaders">
+          <th>Base Currency</th>
+          <th>Exchange Currency</th>
+          <th>Rate</th>
+          <th>Trend</th>
+        </tr>
+        <tbody id="tableBody"></tbody>
+      </table>
+      <p id="notFound"></p>
+    </div>
+
+    <script src="main.js"></script>
   </body>
 </html>
