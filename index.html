@@ -23,6 +23,7 @@
       <p id="result"></p>
     </form>
 
+    <!-- Exchange Rates Table & Search Function-->
     <div id="currencyRateGrid">
       <input type="text" id="searchCurrency" placeholder="Search currency" />
       <button
@@ -34,12 +35,14 @@
       </button>
 
       <table id="currencyTable">
-        <tr id="tableHeaders">
-          <th>Base Currency</th>
-          <th>Exchange Currency</th>
-          <th>Rate</th>
-          <th>Trend</th>
-        </tr>
+        <thead>
+          <tr id="tableHeaders">
+            <th>Base Currency</th>
+            <th>Exchange Currency</th>
+            <th>Rate</th>
+            <th>Trend</th>
+          </tr>
+        </thead>
         <tbody id="tableBody"></tbody>
       </table>
       <p id="notFound"></p>
