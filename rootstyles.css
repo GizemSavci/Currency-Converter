@@ -1,0 +1,10 @@
+:root {
+    --borger-primary: #44831E;
+    --borger-medium:#3C5C22;
+    --borger-dark:#233614;
+    --negative:#CC0000
+}
+
+.button-primary{
+    background-color: var(--borger-primary);
+}

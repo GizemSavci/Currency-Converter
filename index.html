@@ -8,71 +8,71 @@
       rel="stylesheet"
       href="dkfds-9.1.0/css/dkfds.min.css"
     />
-    <title>Currency Converter</title>
+    <link rel="stylesheet" href="rootstyles.css" />
+    <title>Exchange Rates Table</title>
   </head>
   <body>
-    <!--JS3 Week3 Enhancement!-->
-
-    <div id="marketHours">
-      <p id="marketAvailability"></p>
+    <div>
+      <header></header>
     </div>
-
-    <label class="form-label" for="currency">Convert Quotas</label>
+    <div>
+      <input
+        type="number"
+        id="creditCardNumber"
+        placeholder="Enter Your Card Number"
+        class="form-input"
+        required
+      />
+      <button button="logCard" id="cardAdd" class="button button-primary">
+        Add
+      </button>
+      <p id="cardMessage" class="small-text"></p>
+    </div>
+    <div id="marketHours">
+      <p id="marketAvailability" class="small-text"></p>
+    </div>
     <form id="currencyForm">
+      <label class="form-label" for="currency">Convert Currencies</label>
       <select class="form-select" id="fromCurrency"></select>
+      <button type="button" id="switchCurrency" class="button button-primary">
+        Switch
+      </button>
       <select class="form-select" id="toCurrency"></select>
-      <input type="number" id="amount" placeholder="Amount" required />
+      <input
+        type="number"
+        id="amount"
+        placeholder="Amount"
+        required
+        class="form-input"
+      />
       <button
         type="button"
         onclick="convertCurrency()"
         class="button button-primary"
       >
-        >Convert
+        Convert
       </button>
-      <p id="result"></p>
+      <p id="result" class="small-text"></p>
     </form>
 
-    <!--Week2 Currency Table!-->
-    <div id="currencyRateGrid">
-      <input
-        type="button"
-        value="Generate a table"
-        onclick="generateCurrencyTable()"
-        class="button button-primary"
-      />
+    <select class="form-select" id="baseCurrency"></select>
+
+    <div id="dynamicTable" class="table--responsive-scroll">
+      <p id="cardSpecificTable" class="small-text"></p>
+      <table id="exchangeRatesTable" class="table">
+        <thead>
+          <tr>
+            <th scope="col" class="small-text">Base Currency</th>
+            <th scope="col" class="small-text">Exchange Currency</th>
+            <th scope="col" class="small-text" id="rateHeader">Rate</th>
+            <th scope="col" class="small-text">Trend</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
     </div>
 
-    <!--Week2 Search Field!-->
-    <form id="searchForm">
-      <input type="text" id="searchFrom" placeholder="From currency" />
-      <!--<input type="text" id="searchTo" placeholder="To currency" />!-->
-      <button
-        type="button"
-        onclick="searchCurrency()"
-        class="button button-primary"
-      >
-        Search
-      </button>
-      <p id="searchResult"></p>
-    </form>
-
-    <!--Rate Alarm Field!-->
-
-    <div id="ValueAlert">
-      <form id="CurrencyAlarm">
-        <select id="baseCurrencyAlarm"></select>
-        <select id="exchangeCurrencyAlarm"></select>
-        <input type="number" id="rateAlarm" placeholder="Rate" required />
-        <button
-          type="button"
-          onclick="createAlarm()"
-          class="button button-primary"
-        >
-          Set Alarm
-        </button>
-      </form>
-    </div>
     <script src="main.js"></script>
-    <script src="dkfds-9.1.0/dist/js/dkfds.js"></script>
+    <script src="cardvalidator.js"></script>
   </body>
 </html>

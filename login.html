@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="dkfds-9.1.0/css/dkfds.min.css"
+    />
+    <link rel="stylesheet" href="rootstyles.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Login</title>
+  </head>
+  <body>
+    <div id="master-container" class="master-container">
+      <div id="login-container" class="login-container">
+        <form>
+          <h1>Log on at Self Service Currency Converter</h1>
+          <h2>svg MitID insert</h2>
+          <section id="core-client-section">
+            <div>
+              <label for="username" class="form-label">Username</label>
+              <input type="text" id="username" required class="form-input" />
+              <button
+                type="submit"
+                onclick="auth()"
+                class="button button-primary"
+              >
+                Continue
+              </button>
+            </div>
+          </section>
+        </form>
+      </div>
+      <div id="context-help" class="context-help"></div>
+    </div>
+    <script>
+      function auth() {
+        let username = document.getElementById("username").value;
+        window.location.assign("index.html");
+        alert("login successfully");
+      }
+    </script>
+  </body>
+</html>
